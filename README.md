@@ -1,2 +1,0 @@
-jnovinger.github.io
-===================
