@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="content">
+    {% for article in articles %}
+      <aside id="featured">
+        <div class="body">
+          <article>
+            <h1 class="entry-title">
+              <a href="{{ SITEURL }}/{{ article.url }}"
+                 rel="bookmark"
+                 title="Permalink to {{ article.title|striptags}}">
+
+                {{ article.title }}
+              </a>
+            </h1>
+
+            <div class="post-info">
+              <ul>
+                <li class="vcard author">
+                  by
+                  {% for author in article.authors %}
+                    <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">
+                      {{ author }}
+                    </a>
+                    {% if not loop.last %}, {% endif %}
+                  {% endfor %}
+                </li>
+                <li class="published" title="{{ article.date }}">
+                  on {{ article.locale_date }}
+                </li>
+              </ul>
+
+              <p>
+                Tags:
+                {% for tag in article.tags %}
+                  <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                {% endfor %}
+              </p>
+            </div><!-- /.post-info -->
+
+            {% if loop.index0 == 0 %}
+              {{ article.content }}
+            {% elif loop.index0 < 3 %}
+              {{ article.summary }}
+              <a href="{{ SITEURL }}/{{ article.url }}">Read More →</a>
+            {% endif %}
+
+          </article>
+        </div>
+      </aside><!-- /#featured -->
+    {% endfor %}
+  </div>
+{% endblock %}
